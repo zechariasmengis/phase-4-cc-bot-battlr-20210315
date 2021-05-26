@@ -9,13 +9,14 @@ const botTypeClasses = {
   Captain: "icon star"
 };
 
+// I DONT KNOW WHY THIS ISNT WORKING
 const BotCard = props => {
   return (
     <div className="ui column">
       <div
         className="ui card"
         key={props.bot.id}
-        onClick={() => console.log("add code to connect event listener")}
+        onClick={() => props.handleClick(props.bot)}
       >
         <div className="image">
           <img alt="oh no!" src={props.bot.avatar_url} />
