@@ -15,18 +15,30 @@ class BotsPage extends Component {
   };
 
   draftBot = (bot) => {
+    if (!this.state.enlistedBots.includes(bot)) {
     this.setState({ enlistedBots: [...this.state.enlistedBots, bot] });
+    }
   };
 
   dischargeBot = (bot) => {
-    console.log(bot)
+    this.setState({enlistedBots: [...this.state.enlistedBots.filter(eb => eb !== bot )]})
+  }
+
+  terminateBot = (bot) => {
+    fetch(`${botApi}/${bot.id}`, {
+      method: 'DELETE',
+    })
+    .then(this.dischargeBot(bot))
+    .then(this.setState({
+      bots: [...this.state.bots.filter(eb => eb!== bot)]
+    }))
   }
 
   render() {
     return (
       <div>
-        <YourBotArmy handleClick={this.dischargeBot} bots={this.state.enlistedBots}/>
-        <BotCollection handleClick={this.draftBot} bots={this.state.bots} />
+        <YourBotArmy handleClick={this.dischargeBot} handleTerminate={this.terminateBot} bots={this.state.enlistedBots}/>
+        <BotCollection handleClick={this.draftBot} handleTerminate={this.terminateBot} bots={this.state.bots} />
       </div>);
   }
 }

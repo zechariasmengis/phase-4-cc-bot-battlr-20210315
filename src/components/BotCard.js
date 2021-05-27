@@ -9,7 +9,6 @@ const botTypeClasses = {
   Captain: "icon star"
 };
 
-// I DONT KNOW WHY THIS ISNT WORKING
 const BotCard = props => {
   return (
     <div className="ui column">
@@ -48,8 +47,10 @@ const BotCard = props => {
             <div className="ui center aligned segment basic">
               <button
                 className="ui mini red button"
-                onClick={() =>
-                  console.log("add code to connect event listener")
+                onClick={(e) => {
+                  e.stopPropagation();
+                  props.handleTerminate(props.bot)
+                }
                 }
               >
                 x
